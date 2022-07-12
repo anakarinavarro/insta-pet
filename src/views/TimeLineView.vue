@@ -1,7 +1,9 @@
 <template>
-  <h1>Home y registro</h1>
+  <h1>timeLine</h1>
 </template>
 
 <script>
 export default {}
 </script>
+
+<style></style>
