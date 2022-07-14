@@ -1,21 +1,20 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
-      <v-spacer></v-spacer>
-    </v-app-bar>
-
+    <NavBar />
     <v-main>
       <router-view />
     </v-main>
+    <FooterBar />
   </v-app>
 </template>
 
 <script>
+import NavBar from './components/NavBar.vue'
+import FooterBar from './components/FooterBar.vue'
+
 export default {
   name: 'App',
-
-  data: () => ({
-    //
-  }),
+  data: () => ({}),
+  components: { NavBar, FooterBar },
 }
 </script>
