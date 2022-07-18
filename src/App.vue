@@ -1,20 +1,14 @@
-<template>
-  <v-app>
-    <NavBar />
-    <v-main>
-      <router-view />
-    </v-main>
-    <FooterBar />
-  </v-app>
+<template class="bg">
+    <v-app app>
+        <v-container class="bg" fluid>
+            <router-view />
+        </v-container>
+    </v-app>
 </template>
 
 <script>
-import NavBar from './components/NavBar.vue'
-import FooterBar from './components/FooterBar.vue'
-
 export default {
-  name: 'App',
-  data: () => ({}),
-  components: { NavBar, FooterBar },
+    name: "App",
+    data: () => ({}),
 }
 </script>

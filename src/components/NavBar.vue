@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app-bar color="#8BC34A" dark absolute fixed>
+    <v-app-bar color="primary" dark absolute fixed>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-toolbar-title> InstaPet </v-toolbar-title>
       <v-spacer></v-spacer>

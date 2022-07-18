@@ -1,23 +1,37 @@
-import Axios from 'axios'
+//import Axios from 'axios'
+
+import { DB } from "@/plugins/Firebase"
+
 export const profilesModule = {
-  namespaced: true,
-  state: {
-    listado: [],
-  },
-  mutations: {
-    SET_LISTADO(state, newListado) {
-      state.listado = newListado
+    namespaced: true,
+    state: {
+        listado: [],
+        loading: false,
     },
-  },
-  actions: {
-    async getAllProfiles(context) {
-      try {
-        const profile = await Axios.get('/recent.json')
-        console.log(typeof profile.data)
-        context.commit('SET_LISTADO', profile.data)
-      } catch (e) {
-        console.error(e)
-      }
+    mutations: {
+        SET_LISTADO(state, newListado) {
+            state.listado = newListado
+        },
+        SET_LOADING(state, newLoading) {
+            state.loading = newLoading
+        },
     },
-  },
+    actions: {
+        async getAllProfiles({ commit }) {
+            commit("SET_LOADING", true)
+            try {
+                const profile = []
+                const profile$ = await DB.collection("profile").get()
+
+                profile$.forEach((document) => {
+                    profile.push({ ...document.data(), id: document.id })
+                })
+                commit("SET_LISTADO", profile)
+            } catch (e) {
+                console.error(e)
+            } finally {
+                commit("SET_LOADING", false)
+            }
+        },
+    },
 }
