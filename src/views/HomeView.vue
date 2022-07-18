@@ -1,13 +1,16 @@
 <template>
   <v-container style="background-color: #7400fc">
-    <v-layout row style="align-items: center">
+    <v-layout row style="align-items: center" align="center" just>
       <v-flex xs12 sm6>
         <v-card class="transparent d-flex justify-center mb-6" elevation="0">
           <v-card class="transparent" elevation="0">
             <h2 class="home-title">Encuentra a</h2>
             <h2 class="home-title"><span>tu amigo ideal</span></h2>
             <br />
-            <v-btn color="#fc5374" class="home-btn white--text">Registrate</v-btn>
+
+            <v-btn color="#fc5374">
+              <router-link to="/LoginView" class="white--text">Iniciar Sesión</router-link>
+            </v-btn>
           </v-card>
         </v-card>
       </v-flex>
