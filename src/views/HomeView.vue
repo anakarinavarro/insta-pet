@@ -31,6 +31,8 @@ export default {}
 </script>
 
 <style>
+.bg {
+    height: 100vh;
 .v-application--wrap {
   font-family: 'Montserrat', sans-serif;
   background-color: #7400fc;

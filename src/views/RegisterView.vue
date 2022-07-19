@@ -6,7 +6,7 @@
                     ref="formUp"
                     v-model="valid"
                     lazy-validation
-                    @submit.prevent="login()"
+                    @submit.prevent="crearCuenta()"
                 >
                     <v-text-field
                         solo
@@ -30,15 +30,25 @@
                     <v-row>
                         <v-col cols="12">
                             <v-btn
-                                :disabled="!valid"
-                                type="submit"
                                 right
                                 outlined
                                 block
-                                color="primary"
-                                to="/TimeLineView"
+                                color="secondary"
+                                to="/LoginView"
                                 >Iniciar Sesión</v-btn
                             >
+                        </v-col>
+                        <v-col cols="12">
+                            <v-btn
+                                block
+                                :disabled="!valid"
+                                color="primary"
+                                class="mr-4"
+                                @click="validate"
+                                type="submit"
+                            >
+                                Registrar
+                            </v-btn>
                         </v-col>
                     </v-row>
                 </v-form>
@@ -63,28 +73,29 @@ export default {
         show1: false,
         rules: {
             required: (value) => !!value || "Required.",
-            min: (v) => v.length >= 6 || "Min 8 characters",
+            min: (v) => v.length >= 8 || "Min 8 characters",
             emailMatch: () => `The email and password you entered don't match`,
         },
     }),
     methods: {
-        validate() {
-            this.$refs.form.validate()
-        },
-        ...mapActions("auth", ["signInWithEmailAndPassword"]),
-        async login() {
-            if (this.$refs.form.validate()) {
-                await this.signInWithEmailAndPassword(this.credenciales)
-                this.valid = false
-                this.credenciales = {
-                    email: "",
-                    password: "",
-                }
+        ...mapActions("auth", ["createUserWithEmailAndPassword"]),
+        async crearCuenta() {
+            if (this.$refs.formUp.validate()) {
+                await this.createUserWithEmailAndPassword(this.credenciales)
             }
-            this.$router.push("/TimeLineView")
+            this.$router.push("/WelcomeView")
         },
+        validate() {
+            this.$refs.formUp.validate()
+        },
+    },
+    mounted() {
+        this.$store.dispatch("auth/subscribeToAuthStateChange")
     },
 }
 </script>
-
-<style></style>
+<style>
+.bg {
+    height: 100vh;
+}
+</style>
