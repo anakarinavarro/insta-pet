@@ -79,14 +79,15 @@ export default {
     }),
     methods: {
         ...mapActions("auth", ["createUserWithEmailAndPassword"]),
+
+        validate() {
+            this.$refs.formUp.validate()
+        },
         async crearCuenta() {
             if (this.$refs.formUp.validate()) {
                 await this.createUserWithEmailAndPassword(this.credenciales)
             }
             this.$router.push("/WelcomeView")
-        },
-        validate() {
-            this.$refs.formUp.validate()
         },
     },
     mounted() {

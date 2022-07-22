@@ -52,7 +52,7 @@ const routes = [
         },
     },
     {
-        path: "/WelcomView",
+        path: "/WelcomeView",
         name: "WelcomeView",
 
         component: () => import("../views/WelcomeView.vue"),
@@ -61,16 +61,16 @@ const routes = [
         },
     },
     {
-        path: "/PetTabView.vue",
-        name: "PetTabView",
-        component: () => import("../views/PetTabView.vue"),
+        path: "/TimeLineView/:Id",
+        name: "PetDetailsView",
+        component: () => import("../views/PetDetailsView.vue"),
         meta: {
             accessLevel: "private",
         },
     },
 
     {
-        path: "/:pathMatch(.*)*",
+        path: "*",
         name: "Error",
         component: () => import("../views/ErrorView.vue"),
         meta: {
@@ -87,7 +87,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     const accessLevel = to.meta.accessLevel
-    const activeLogin = store.getters["users/activeLogin"]
+    const activeLogin = store.getters["auth/activeLogin"]
 
     if (accessLevel === "public") {
         next()

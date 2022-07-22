@@ -10,5 +10,9 @@
 export default {
     name: "App",
     data: () => ({}),
+    computed: {},
+    async mounted() {
+        await this.$store.dispatch("auth/subscribeToAuthStateChange")
+    },
 }
 </script>

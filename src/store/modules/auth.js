@@ -22,7 +22,7 @@ export const authModule = {
     },
     actions: {
         async subscribeToAuthStateChange({ commit }) {
-            await firebase.auth().onAuthStateChanged((user) => {
+            firebase.auth().onAuthStateChanged((user) => {
                 commit("SET_USER", user)
             })
         },

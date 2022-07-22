@@ -8,6 +8,11 @@ export const profilesModule = {
         listado: [],
         loading: false,
     },
+    getters: {
+        heart(state) {
+            return state.listado.length
+        },
+    },
     mutations: {
         SET_LISTADO(state, newListado) {
             state.listado = newListado
@@ -33,5 +38,16 @@ export const profilesModule = {
                 commit("SET_LOADING", false)
             }
         },
+    },
+    async createAccount({ commit }, newListado) {
+        commit("SET_LOADING", true)
+        try {
+            await DB.collection("profile").add(newListado)
+            commit("SET_LISTADO", newListado)
+        } catch (error) {
+            console.error("error en agregar mascota")
+        } finally {
+            commit("SET_LOADING", false)
+        }
     },
 }
