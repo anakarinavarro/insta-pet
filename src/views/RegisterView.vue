@@ -1,13 +1,32 @@
 <template>
-    <v-container fluid>
+    <v-container fluid fill-height>
         <v-row class="mb-6" justify="center" no-gutters>
-            <v-col cols="4">
+            <v-col cols="12" xs="12" md="4">
                 <v-form
                     ref="formUp"
                     v-model="valid"
                     lazy-validation
                     @submit.prevent="crearCuenta()"
                 >
+                    <v-row>
+                        <v-col cols="12" align="center">
+                            <v-btn color="#7400fc" elevation="0">
+                                <router-link to="/">
+                                    <v-img
+                                        src="../../public/assets/img/InstaPet_logo.svg"
+                                        width="200"
+                                    ></v-img>
+                                </router-link>
+                            </v-btn>
+                        </v-col>
+                        <v-col>
+                            <p align="center" style="color: #ffffff">
+                                Red social
+                                <v-icon color="pink darken-1">mdi-heart</v-icon>
+                                para mascotas
+                            </p>
+                        </v-col>
+                    </v-row>
                     <v-text-field
                         solo
                         v-model="credenciales.email"

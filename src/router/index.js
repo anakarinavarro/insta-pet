@@ -39,7 +39,7 @@ const routes = [
 
         component: () => import("../views/AccountView.vue"),
         meta: {
-            accessLevel: "private",
+            accessLevel: "public", //private
         },
     },
     {
