@@ -10,7 +10,10 @@
                         <h2 class="home-title">Encuentra a</h2>
                         <h2 class="home-title"><span>tu amigo ideal</span></h2>
                         <br />
-                        <v-btn color="#fc5374" class="home-btn white--text"
+                        <v-btn
+                            color="#fc5374"
+                            class="home-btn white--text"
+                            to="/RegisterView"
                             >Registrate</v-btn
                         >
                     </v-card>

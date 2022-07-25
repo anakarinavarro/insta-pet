@@ -4,8 +4,8 @@
         <div>
             <h2 class="home-title">Amigos Cercanos</h2>
             <div id="map"></div>
+            <FooterBar />
         </div>
-        <FooterBar />
     </v-container>
 </template>
 
@@ -50,7 +50,7 @@ export default {
         })
 
         this.map.addControl(
-            new MapboxGeocoder({
+            new mapboxgl.MapboxGeocoder({
                 accessToken: mapboxgl.accessToken,
                 mapboxgl: mapboxgl,
             })
