@@ -1,5 +1,5 @@
 <template>
-    <h1>detalle de perfil</h1>
+  <h1>detalle de perfil</h1>
 </template>
 
 <script>

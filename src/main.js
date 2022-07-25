@@ -1,9 +1,9 @@
-import Vue from "vue"
-import App from "./App.vue"
-import router from "./router"
-import store from "./store"
-import vuetify from "./plugins/vuetify"
-import "./plugins/Firebase.js"
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+import vuetify from './plugins/vuetify'
+import './plugins/Firebase.js'
 
 //import Axios from 'axios'
 //import VueAxios from 'vue-axios'
@@ -11,8 +11,8 @@ import "./plugins/Firebase.js"
 Vue.config.productionTip = false
 
 new Vue({
-    router,
-    store,
-    vuetify,
-    render: (h) => h(App),
-}).$mount("#app")
+  router,
+  store,
+  vuetify,
+  render: (h) => h(App)
+}).$mount('#app')
