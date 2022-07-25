@@ -3,7 +3,7 @@
     <v-row class="mb-6" justify="center" no-gutters>
       <v-col cols="4">
         <v-form
-          ref="formUp"
+          ref="form"
           v-model="valid"
           lazy-validation
           @submit.prevent="login()"
@@ -37,6 +37,7 @@
                 block
                 color="primary"
                 to="/TimeLineView"
+                @click="validate"
                 >Iniciar Sesión</v-btn
               >
             </v-col>
@@ -83,6 +84,9 @@ export default {
       }
       this.$router.push('/TimeLineView')
     }
+  },
+  mounted() {
+    this.$store.dispatch('auth/subscribeToAuthStateChange')
   }
 }
 </script>

@@ -1,36 +1,38 @@
 <template>
-  <v-container>
+  <div>
     <NavBar></NavBar>
-    <div class="tarjetas">
-      <v-layout row wrap>
-        <h2 class="text-center">Conoce Nuestras Mascotas</h2>
-        <v-flex
-          xs12
-          sm12
-          md4
-          v-for="(profile, $index) in profiles"
-          :key="$index"
-        >
-          <ProfileCard :value="profile" />
-        </v-flex>
-      </v-layout>
-    </div>
-  </v-container>
+    <v-container>
+      <div class="tarjetas">
+        <v-layout row wrap>
+          <v-flex
+            xs12
+            sm12
+            md4
+            v-for="(profile, $index) in profiles"
+            :key="$index"
+          >
+            <ProfileCard :value="profile" />
+          </v-flex>
+        </v-layout>
+      </div>
+    </v-container>
+  </div>
 </template>
 
 <script>
-import Store from '@/store'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 import ProfileCard from '@/components/ProfileCard.vue'
 import NavBar from '@/components/NavBar.vue'
 
 export default {
   computed: {
+    ...mapState('auth', ['users']),
     ...mapState('profiles', {
       profiles: (state) => state.listado,
       loading: (state) => state.loading
-    })
+    }),
+    ...mapGetters('auth', ['activeLogin'])
   },
   components: { ProfileCard, NavBar },
 
@@ -41,10 +43,6 @@ export default {
   },
   mounted() {
     this.getAllProfiles()
-  },
-  beforeRouteEnter(to, from, next) {
-    Store.dispatch('profiles/getAllProfiles')
-    next()
   }
 }
 </script>

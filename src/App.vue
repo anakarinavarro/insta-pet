@@ -15,7 +15,11 @@
 <script>
 export default {
   name: 'App',
-  data: () => ({})
+  data: () => ({}),
+  computed: {},
+  async mounted() {
+    await this.$store.dispatch('auth/subscribeToAuthStateChange')
+  }
 }
 </script>
 
