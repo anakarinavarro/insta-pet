@@ -1,14 +1,26 @@
-<template class="bg">
-    <v-app app>
-        <v-container class="bg" fluid>
-            <router-view />
-        </v-container>
-    </v-app>
+<template>
+  <v-app app dark>
+    <NavBar />
+    <NavigationDrawer />
+    <v-main>
+      <v-container class="bg h-100 w-100" fluid>
+        <transition name="fade" mode="out-in">
+          <router-view />
+        </transition>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
 export default {
-    name: "App",
-    data: () => ({}),
+  name: 'App',
+  data: () => ({})
 }
 </script>
+
+<style>
+.v-application--wrap {
+  font-family: 'Montserrat', sans-serif;
+}
+</style>
