@@ -1,14 +1,21 @@
 <template>
-    <main>
-        <h1>mapa</h1>
-        <div id="map"></div>
-    </main>
+    <v-container style="background-color: #7400fc">
+        <NavBar />
+        <div>
+            <h2 class="home-title">Amigos Cercanos</h2>
+            <div id="map"></div>
+        </div>
+        <FooterBar />
+    </v-container>
 </template>
 
 <script>
-import store from "@/store"
+import NavBar from "@/components/NavBar.vue"
+import FooterBar from "@/components/FooterBar.vue"
+//import store from "@/store"
 import { mapState, mapActions } from "vuex"
 import mapboxgl from "mapbox-gl"
+
 mapboxgl.accessToken =
     "pk.eyJ1IjoiYXZhc3F1ZXp2IiwiYSI6ImNsNXd5dWZtcTBidDUza3FoNzdyYW83YWoifQ.-N-afq464c8-FBUUQOy8mQ"
 
@@ -16,6 +23,7 @@ export default {
     data: () => ({
         map: null,
     }),
+    components: { NavBar, FooterBar },
     methods: {
         ...mapActions("profiles", {
             getAllPoints: "getAllProfiles",
@@ -32,7 +40,7 @@ export default {
     mounted() {
         this.map = new mapboxgl.Map({
             container: "map", // container ID
-            style: "mapbox://styles/mapbox/streets-v11", // style URL
+            style: "mapbox://styles/mapbox/light-v10", // style URL
             center: [-74.5, 40], // starting position [lng, lat]
             zoom: 15, // starting zoom
             projection: "globe", // display the map as a 3D globe
@@ -67,5 +75,9 @@ export default {
 #map {
     height: 80vh;
     width: 80vw;
+}
+.home-title {
+    color: #ffffff;
+    font-size: 50px;
 }
 </style>

@@ -5,7 +5,7 @@ import store from "./store"
 import vuetify from "./plugins/vuetify"
 import "./plugins/Firebase.js"
 
-import 'mapbox-gl/dist/mapbox-gl.css';
+import "mapbox-gl/dist/mapbox-gl.css"
 
 //import Axios from 'axios'
 //import VueAxios from 'vue-axios'
