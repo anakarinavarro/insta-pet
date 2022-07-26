@@ -1,6 +1,5 @@
 <template>
   <v-container style="background-color: #7400fc">
-    <NavBar />
     <div>
       <h2 class="home-title">Amigos Cercanos</h2>
       <div id="map"></div>
@@ -10,20 +9,18 @@
 </template>
 
 <script>
-import NavBar from '@/components/NavBar.vue'
 import FooterBar from '@/components/FooterBar.vue'
 //import store from "@/store"
 import { mapState, mapActions } from 'vuex'
 import mapboxgl from 'mapbox-gl'
 
-mapboxgl.accessToken =
-  'pk.eyJ1IjoiYXZhc3F1ZXp2IiwiYSI6ImNsNXd5dWZtcTBidDUza3FoNzdyYW83YWoifQ.-N-afq464c8-FBUUQOy8mQ'
+mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_ACCESS_TOKEN
 
 export default {
   data: () => ({
     map: null
   }),
-  components: { NavBar, FooterBar },
+  components: { FooterBar },
   methods: {
     ...mapActions('profiles', {
       getAllPoints: 'getAllProfiles'

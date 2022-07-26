@@ -1,12 +1,5 @@
 <template>
-  <v-navigation-drawer
-    :value="drawer"
-    @input="SET_DRAWER"
-    absolute
-    left
-    temporary
-    app
-  >
+  <v-navigation-drawer :value="drawer" @input="SET_DRAWER" left temporary app>
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="text-h6">INSTAPET</v-list-item-title>
