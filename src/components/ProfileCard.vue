@@ -47,7 +47,7 @@
                     <v-list>
                         <v-list-item>
                             <v-list-item-title>
-                                <p>Raza: Hermoso</p>
+                                <p>Raza: {{ value.petRaza }}</p>
                                 <p>Edad: {{ value.petAge }}</p>
                                 <p>Hermanos: 2</p>
                             </v-list-item-title>

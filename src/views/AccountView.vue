@@ -1,5 +1,5 @@
 <template>
-  <h1>mi cuenta</h1>
+    <h1>mi cuenta</h1>
 </template>
 
 <script>
