@@ -26,14 +26,14 @@ export default {}
 
 <style>
 .error_404 {
-    width: 100%;
-    max-width: 700px;
+  width: 100%;
+  max-width: 700px;
 }
 .btn-pink {
-    background-color: #fc5374;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    margin: 40px;
+  background-color: #fc5374;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  margin: 40px;
 }
 </style>

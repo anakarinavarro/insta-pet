@@ -53,8 +53,8 @@ export default {
 
 <style>
 .home-title {
-    color: #ffffff;
-    font-size: 50px;
+  color: #ffffff;
+  font-size: 50px;
 }
 .home-title span {
   color: var(--v-secondary-base);
