@@ -1,10 +1,10 @@
 <template>
   <div>
-    <NavBar></NavBar>
     <v-container class="grey lighten-5">
       <v-row no-gutters>
         <v-col cols="12" sm="6">
           <template>
+            {{ profile }}
             <v-form
               ref="form"
               v-model="valid"
@@ -12,21 +12,21 @@
               @submit.prevent="agregarMascota()"
             >
               <v-text-field
-                v-model="data.ownerName"
+                v-model="profile.ownerName"
                 :counter="20"
                 :rules="nameRules"
                 label="Nombre de usuario"
                 required
               ></v-text-field>
               <v-text-field
-                v-model="data.petName"
+                v-model="profile.petName"
                 :counter="20"
                 :rules="nameRules"
                 label="Nombre de mascota"
                 required
               ></v-text-field>
               <v-text-field
-                v-model="data.petRaza"
+                v-model="profile.petRaza"
                 :counter="20"
                 :rules="nameRules"
                 label="Raza Mascota"
@@ -34,40 +34,50 @@
               ></v-text-field>
 
               <v-select
-                v-model="data.petType"
+                v-model="profile.petType"
                 :items="items"
                 :rules="[(v) => !!v || 'Item is required']"
                 label="Tipo de Mascota"
                 required
               ></v-select>
               <v-text-field
-                v-model="data.petAge"
+                v-model="profile.petAge"
                 :counter="10"
                 :rules="nameRules"
                 label="Edad Mascota"
                 required
               ></v-text-field>
               <v-text-field
-                v-model="data.address"
+                v-model="profile.address"
                 :counter="20"
                 :rules="nameRules"
                 label="Cuidad"
                 required
               ></v-text-field>
               <v-text-field
-                v-model="data.descripcion"
+                v-model="profile.descripcion"
                 :counter="100"
                 :rules="nameRules"
                 label="Descripcion"
                 required
               ></v-text-field>
               <v-text-field
-                v-model="data.intereses"
+                v-model="profile.intereses"
                 :counter="20"
                 :rules="nameRules"
                 label="Intereses1"
                 required
               ></v-text-field>
+
+              <v-file-input
+                :rules="rules"
+                accept="image/png, image/jpeg, image/bmp"
+                placeholder="Pick an avatar"
+                prepend-icon="mdi-camera"
+                label="Avatar"
+                @change="onFileChange($event)"
+                :loading="uploading"
+              ></v-file-input>
 
               <v-btn
                 :disabled="!valid"
@@ -85,20 +95,39 @@
             </v-form>
           </template>
         </v-col>
+        <v-col cols="12" md="6">
+          <PickPlaceMap @pick="profile.coords = $event" />
+        </v-col>
+        <v-col>
+          <img
+            :src="profile.avatar"
+            v-if="profile.avatar"
+            style="width: 300px; height: 300px"
+          />
+        </v-col>
       </v-row>
     </v-container>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
-import NavBar from '@/components/NavBar.vue'
-export default {
-  components: { NavBar },
+import { v4 as uuidv4 } from 'uuid'
+import firebase from 'firebase'
+import { mapActions } from 'vuex'
+import PickPlaceMap from '@/components/PickPlaceMap.vue'
 
+export default {
+  components: { PickPlaceMap },
   data: () => ({
+    rules: [
+      (value) =>
+        !value ||
+        value.size < 2000000 ||
+        'Avatar size should be less than 2 MB!'
+    ],
     valid: true,
-    data: {
+    uploading: false,
+    profile: {
       ownerName: '',
       petName: '',
       petRaza: '',
@@ -106,7 +135,9 @@ export default {
       petAge: '',
       address: '',
       descripcion: '',
-      intereses: []
+      intereses: [],
+      coords: [],
+      avatar: null
     },
 
     nameRules: [
@@ -116,13 +147,24 @@ export default {
     select: null,
     items: ['Perro', 'Gato', 'Conejo', 'Hamster']
   }),
-  computed: {
-    ...mapState('profiles', {
-      data: (state) => state.listado,
-      loading: (state) => state.loading
-    })
-  },
   methods: {
+    async onFileChange(file) {
+      if (!file) return
+      this.uploading = true
+      try {
+        const storageRef = await firebase
+          .storage()
+          .ref()
+          .child('fotos')
+          .child(uuidv4())
+        await storageRef.put(file)
+        this.profile.avatar = await storageRef.getDownloadURL()
+      } catch (e) {
+        console.error(e)
+      } finally {
+        this.uploading = false
+      }
+    },
     validate() {
       this.$refs.form.validate()
     },

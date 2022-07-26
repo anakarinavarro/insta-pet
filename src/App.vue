@@ -1,5 +1,5 @@
 <template>
-  <v-app app dark>
+  <v-app dark>
     <NavBar v-if="activeLogin" />
     <NavigationDrawer v-if="activeLogin" />
     <v-main>
