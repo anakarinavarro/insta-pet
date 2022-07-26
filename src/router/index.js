@@ -59,9 +59,9 @@ const routes = [
     }
   },
   {
-    path: '/PetTabView',
-    name: 'PetTabView',
-    component: () => import('../views/PetTabView.vue'),
+    path: '/PetDetailsView',
+    name: 'PetDetailsView',
+    component: () => import('../views/PetDetailsView.vue'),
     meta: {
       accessLevel: 'private'
     }

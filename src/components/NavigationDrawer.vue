@@ -1,5 +1,12 @@
 <template>
-  <v-navigation-drawer v-model="drawer" right app>
+  <v-navigation-drawer
+    :value="drawer"
+    @input="SET_DRAWER"
+    absolute
+    left
+    temporary
+    app
+  >
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="text-h6">INSTAPET</v-list-item-title>
@@ -20,16 +27,31 @@
         </v-list-item-icon>
         <v-list-item-title>Time-Line</v-list-item-title>
       </v-list-item>
+      <v-list-item link to="/WelcomeView">
+        <v-list-item-icon>
+          <v-icon> mdi-human-greeting</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>Welcome</v-list-item-title>
+      </v-list-item>
+      <v-list-item link to="/AccountView">
+        <v-list-item-icon>
+          <v-icon> mdi-account</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>Mi Cuenta</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
 export default {
-  data: () => ({
-    drawer: false
-  })
-  })
+  computed: {
+    ...mapState('system', ['drawer'])
+  },
+  methods: {
+    ...mapMutations('system', ['SET_DRAWER'])
+  }
 }
 </script>
 

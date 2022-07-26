@@ -24,19 +24,22 @@ export const authModule = {
   },
   actions: {
     async subscribeToAuthStateChange({ commit }) {
-      await $Auth.onAuthStateChanged((user) => {
-        commit('SET_USER', user)
+      return new Promise((resolve) => {
+        $Auth.onAuthStateChanged((user) => {
+          commit('SET_USER', user)
+          resolve()
+        })
       })
     },
 
     async signInWithEmailAndPassword({ commit }, credentials) {
       commit('SET_LOADING', true)
       try {
-        await $Auth.signInWithEmailAndPassword(
+        const { user } = await $Auth.signInWithEmailAndPassword(
           credentials.email,
           credentials.password
         )
-        commit('SET_USER', credentials)
+        commit('SET_USER', user)
       } catch (error) {
         console.error('no funca', error)
       } finally {
@@ -46,7 +49,7 @@ export const authModule = {
     async createUserWithEmailAndPassword({ commit }, credentials) {
       commit('SET_LOADING', true)
       try {
-        const newUser = await $Auth.createUserWithEmailAndPassword(
+        const { user: newUser } = await $Auth.createUserWithEmailAndPassword(
           credentials.email,
           credentials.password
         )

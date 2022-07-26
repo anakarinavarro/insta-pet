@@ -49,18 +49,20 @@
                     @click="validate"
                     type="submit"
                     :loading="loading"
+                    dark
                   >
                     Registrar
                   </v-btn>
                 </v-flex>
                 <v-flex>
                   <v-btn
+                    dark
                     block
                     color="secondary"
-                    to="/LoginView"
-                    :loading="loading"
+                    to="/"
+                    :disabled="loading"
                   >
-                    Iniciar Sesión
+                    Salir
                   </v-btn>
                 </v-flex>
               </v-layout>
@@ -88,9 +90,9 @@ export default {
     ],
     show1: false,
     rules: {
-      required: (value) => !!value || 'Required.',
-      min: (v) => v.length >= 8 || 'Min 8 characters',
-      emailMatch: () => `The email and password you entered don't match`
+      required: (value) => !!value || 'Este campo es requerido',
+      min: (v) => v.length >= 8 || 'Mínimo 8 carácteres',
+      emailMatch: () => `El correo electrónico no es válido`
     }
   }),
   methods: {
@@ -111,9 +113,6 @@ export default {
     validate() {
       this.$refs.formUp.validate()
     }
-  },
-  mounted() {
-    this.$store.dispatch('auth/subscribeToAuthStateChange')
   }
 }
 </script>

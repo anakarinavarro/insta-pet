@@ -13,7 +13,9 @@
               </v-btn>
             </v-flex>
             <v-flex shrink>
-              <v-btn color="secondary" dark>Inicia Sesión</v-btn>
+              <v-btn color="secondary" dark to="/LoginView">
+                Inicia Sesión
+              </v-btn>
             </v-flex>
           </v-layout>
         </v-card>
@@ -34,9 +36,17 @@
 </template>
 
 <script>
+import $Store from '@/store'
+
 export default {
-  async mounted() {
-    await this.$store.dispatch('auth/subscribeToAuthStateChange')
+  beforeRouteEnter(to, from, next) {
+    console.log('beforerouteenter')
+    const activeLogin = $Store.getters['auth/activeLogin']
+    if (activeLogin) {
+      next('/TimeLineView')
+    } else {
+      next()
+    }
   }
 }
 </script>
