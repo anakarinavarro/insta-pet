@@ -1,5 +1,7 @@
-import firebase from 'firebase/app'
+import Firebase from 'firebase/app'
 import 'firebase/auth'
+
+const $Auth = Firebase.auth()
 
 export const authModule = {
   namespaced: true,
@@ -22,30 +24,36 @@ export const authModule = {
   },
   actions: {
     async subscribeToAuthStateChange({ commit }) {
-      firebase.auth().onAuthStateChanged((user) => {
-        commit('SET_USER', user)
+      return new Promise((resolve) => {
+        $Auth.onAuthStateChanged((user) => {
+          commit('SET_USER', user)
+          resolve()
+        })
       })
     },
-    async signInWithEmailAndPassword({ commit }, credenciales) {
+
+    async signInWithEmailAndPassword({ commit }, credentials) {
       commit('SET_LOADING', true)
       try {
-        await firebase
-          .auth()
-          .signInWithEmailAndPassword(credenciales.email, credenciales.password)
-        commit('SET_USER', credenciales)
+        const { user } = await $Auth.signInWithEmailAndPassword(
+          credentials.email,
+          credentials.password
+        )
+        commit('SET_USER', user)
       } catch (error) {
         console.error('no funca', error)
       } finally {
         commit('SET_LOADING', false)
       }
     },
-    async createUserWithEmailAndPassword({ commit }, newUser) {
+    async createUserWithEmailAndPassword({ commit }, credentials) {
       commit('SET_LOADING', true)
-
       try {
-        await firebase
-          .auth()
-          .createUserWithEmailAndPassword(newUser.email, newUser.password)
+        const { user: newUser } = await $Auth.createUserWithEmailAndPassword(
+          credentials.email,
+          credentials.password
+        )
+        commit('SET_USER', newUser)
       } catch (error) {
         console.error(error)
       } finally {
@@ -55,8 +63,7 @@ export const authModule = {
     async signOut({ commit }) {
       commit('SET_LOADING', true)
       try {
-        firebase.auth().signOut()
-
+        $Auth.signOut()
         commit('SET_USER', null)
       } catch (error) {
         console.error(error)

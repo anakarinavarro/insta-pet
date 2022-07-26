@@ -18,7 +18,6 @@ const routes = [
   {
     path: '/LoginView',
     name: 'LoginView',
-
     component: () => import('../views/LoginView.vue'),
     meta: {
       accessLevel: 'public'
@@ -54,27 +53,17 @@ const routes = [
   {
     path: '/WelcomeView',
     name: 'WelcomeView',
-
     component: () => import('../views/WelcomeView.vue'),
     meta: {
       accessLevel: 'private'
     }
   },
   {
-    path: '/TimeLineView/:Id',
+    path: '/PetDetailsView',
     name: 'PetDetailsView',
     component: () => import('../views/PetDetailsView.vue'),
     meta: {
       accessLevel: 'private'
-    }
-  },
-
-  {
-    path: '*',
-    name: 'Error',
-    component: () => import('../views/ErrorView.vue'),
-    meta: {
-      accessLevel: 'public'
     }
   }
 ]
@@ -89,6 +78,7 @@ router.beforeEach((to, from, next) => {
   const accessLevel = to.meta.accessLevel
   const activeLogin = store.getters['auth/activeLogin']
 
+  console.log({ accessLevel, activeLogin })
   if (accessLevel === 'public') {
     next()
   } else if (accessLevel === 'private') {
