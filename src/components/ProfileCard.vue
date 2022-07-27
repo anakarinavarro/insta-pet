@@ -1,6 +1,11 @@
 <template>
   <div>
-    <v-card :loading="loading" class="mx-auto my-12" max-width="374">
+    <v-card
+      :loading="loading"
+      class="mx-auto my-12"
+      max-width="374"
+      v-if="disable"
+    >
       <template slot="progress">
         <v-progress-linear
           color="bg"
@@ -9,9 +14,15 @@
         ></v-progress-linear>
       </template>
 
-      <v-img :src="value.image" height="250"></v-img>
+      <v-img :src="value.avatar" height="250"></v-img>
 
       <v-card-title>{{ value.petName }}</v-card-title>
+      <v-card-subtitle class="d-flex justify-space-between"
+        >Mi Humano: {{ value.ownerName }}
+        <v-btn color="wsp pa-1 elevation-1" fab small @click="contact()">
+          <v-icon> mdi-whatsapp </v-icon>
+        </v-btn></v-card-subtitle
+      >
 
       <v-card-text>
         <v-row align="center" class="mx-0">
@@ -51,13 +62,13 @@
       </v-card-text>
 
       <v-card-actions class="d-flex justify-space-between">
-        <v-btn class="mx-2" fab dark color="primary"
-          ><v-icon dark> mdi-heart </v-icon>{{ heart }}</v-btn
+        <v-btn @click="heart" class="mx-2" fab dark color="primary"
+          ><v-icon dark> mdi-heart </v-icon>{{ contador }}</v-btn
         >
         <v-btn class="mx-2" fab dark color="secondary" to="/PetDetailsView">
           <v-icon dark> mdi-magnify </v-icon>
         </v-btn>
-        <v-btn class="mx-2" fab dark color="indigo">
+        <v-btn @click="close" class="mx-2" fab dark color="indigo">
           <v-icon dark> mdi-close </v-icon>
         </v-btn>
       </v-card-actions>
@@ -66,22 +77,35 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   data: () => ({
-    loading: false
+    loading: false,
+    disable: true,
+    contador: 0
   }),
   props: ['value'],
   computed: {
     ...mapState('profiles', {
       profile: (state) => state.listado
-    }),
-    ...mapGetters('profiles', ['heart', 'close'])
+      //contador: (state) => state.contador
+    })
+    //...mapGetters('profiles', ['heart'])
   },
   methods: {
-    ...mapActions('profiles', {
-      getAllProfiles: 'getAllProfiles'
-    })
+    ...mapActions('profiles', ['getAllProfiles']),
+
+    close() {
+      this.disable = false
+    },
+    heart() {
+      this.contador = this.contador + 1
+    },
+    contact() {
+      window.open(
+        'https://wa.me/5211234567890?text=Me%20interesa%20in%20el%20auto%20que%20vendes'
+      )
+    }
   },
   mounted() {
     this.getAllProfiles()
