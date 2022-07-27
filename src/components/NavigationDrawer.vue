@@ -32,6 +32,12 @@
         </v-list-item-icon>
         <v-list-item-title>Mi Cuenta</v-list-item-title>
       </v-list-item>
+      <v-list-item link to="/PetDetailsView">
+        <v-list-item-icon>
+          <v-icon> mdi-map</v-icon>
+        </v-list-item-icon>
+        <v-list-item-title>Mi Ubicación</v-list-item-title>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
