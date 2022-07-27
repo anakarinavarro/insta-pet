@@ -14,7 +14,7 @@
         ></v-progress-linear>
       </template>
 
-      <v-img :src="value.image" height="250"></v-img>
+      <v-img :src="value.avatar" height="250"></v-img>
 
       <v-card-title>{{ value.petName }}</v-card-title>
       <v-card-subtitle class="d-flex justify-space-between"

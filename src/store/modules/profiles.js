@@ -40,27 +40,26 @@ export const profilesModule = {
       } finally {
         commit('SET_LOADING', false)
       }
-    }
-  },
-  async createAccount({ commit }, newListado) {
-    commit('SET_LOADING', true)
-    try {
-      await DB.collection('profile').add(newListado)
-    } catch (error) {
-      console.error('error en agregar mascota')
-    } finally {
-      commit('SET_LOADING', false)
-    }
-  },
-
-  async update({ commit }, { id, ...newMascota }) {
-    commit('SET_LOADING', true)
-    try {
-      await DB.collection('profile').doc(id).update(newMascota)
-    } catch (e) {
-      console.error('Error al editar documento: ', id)
-    } finally {
-      commit('SET_LOADING', false)
+    },
+    async createAccount({ commit }, newListado) {
+      commit('SET_LOADING', true)
+      try {
+        await DB.collection('profile').add(newListado)
+      } catch (error) {
+        console.error('error en agregar mascota')
+      } finally {
+        commit('SET_LOADING', false)
+      }
+    },
+    async update({ commit }, { id, ...newMascota }) {
+      commit('SET_LOADING', true)
+      try {
+        await DB.collection('profile').doc(id).update(newMascota)
+      } catch (e) {
+        console.error('Error al editar documento: ', id)
+      } finally {
+        commit('SET_LOADING', false)
+      }
     }
   }
 }
