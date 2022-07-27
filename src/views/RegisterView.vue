@@ -8,8 +8,26 @@
   >
     <v-layout align-center h-100 justify-center no-gutters>
       <v-flex sm6>
-        <v-card class="pa-5 pa-md-12 card mx-auto">
+        <v-card class="pa-5 pa-md-12 card mx-auto" style="box-shadow: inherit">
           <v-layout column h-100 ma-0 justify-center>
+            <v-flex shrink>
+              <v-btn block color="#7400fc" style="box-shadow: inherit">
+                <router-link to="/">
+                  <v-img
+                    class="my-auto"
+                    src="../../public/assets/img/InstaPet_logo.svg"
+                    width="200"
+                  ></v-img>
+                </router-link>
+              </v-btn>
+            </v-flex>
+            <v-flex shrink my-5>
+              <p align="center" style="color: #ffffff">
+                Red social
+                <v-icon color="pink darken-1">mdi-heart</v-icon>
+                para mascotas
+              </p>
+            </v-flex>
             <v-flex shrink>
               <v-text-field
                 solo
@@ -17,7 +35,6 @@
                 :rules="emailRules"
                 label="Correo electrónico"
                 required
-                dark
                 :disabled="loading"
               ></v-text-field>
             </v-flex>
@@ -34,7 +51,6 @@
                 hint="Mínimo 8 caracteres"
                 counter
                 @click:append="show1 = !show1"
-                dark
                 :disabled="loading"
               ></v-text-field>
             </v-flex>
@@ -49,7 +65,6 @@
                     @click="validate"
                     type="submit"
                     :loading="loading"
-                    dark
                   >
                     Registrar
                   </v-btn>
@@ -119,7 +134,7 @@ export default {
 
 <style scoped>
 .card {
-  background-color: rgb(0, 0, 0, 0.5);
+  background-color: var(--v-bg-base);
   height: 50vh;
   min-height: 350px;
   max-height: 500px;

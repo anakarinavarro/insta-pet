@@ -3,6 +3,11 @@
     <v-flex xs12 sm6>
       <v-card class="transparent d-flex justify-center mb-6" elevation="0">
         <v-card class="transparent" elevation="0">
+          <v-img
+            src="../../public/assets/img/InstaPet_logo.svg"
+            width="100%"
+            max-width="220"
+          ></v-img>
           <h2 class="home-title">Encuentra a</h2>
           <h2 class="home-title"><span>tu amigo ideal</span></h2>
           <br />
