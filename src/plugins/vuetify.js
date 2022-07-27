@@ -12,7 +12,8 @@ export default new Vuetify({
       light: {
         primary: '#fa5374',
         secondary: '#f3bb2d',
-        bg: '#7500fe'
+        bg: '#7500fe',
+        wsp: '#25D366'
       }
     }
   }
