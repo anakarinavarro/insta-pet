@@ -36,7 +36,7 @@
                 outlined
                 block
                 color="primary"
-                to="/TimeLineView"
+                :loading="loading"
                 @click="validate"
                 >Iniciar Sesión</v-btn
               >
@@ -53,6 +53,7 @@ import { mapActions } from 'vuex'
 export default {
   data: () => ({
     valid: true,
+    loading: false,
     credenciales: {
       password: '',
       email: ''
@@ -75,11 +76,18 @@ export default {
     ...mapActions('auth', ['signInWithEmailAndPassword']),
     async login() {
       if (this.$refs.form.validate()) {
-        await this.signInWithEmailAndPassword(this.credenciales)
-        this.valid = false
-        this.credenciales = {
-          email: '',
-          password: ''
+        try {
+          this.loading = true
+          await this.signInWithEmailAndPassword(this.credenciales)
+          this.valid = false
+          this.credenciales = {
+            email: '',
+            password: ''
+          }
+        } catch (error) {
+          console.error(error)
+        } finally {
+          this.loading = false
         }
       }
       this.$router.push('/TimeLineView')

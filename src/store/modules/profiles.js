@@ -10,7 +10,7 @@ export const profilesModule = {
   },
   getters: {
     heart(state) {
-      return state.listado.length
+      state.contador = state.contador + 1
     }
   },
   mutations: {
@@ -19,6 +19,9 @@ export const profilesModule = {
     },
     SET_LOADING(state, newLoading) {
       state.loading = newLoading
+    },
+    SET_CONTADOR(state, newContador) {
+      state.contador = newContador
     }
   },
   actions: {
@@ -43,9 +46,19 @@ export const profilesModule = {
     commit('SET_LOADING', true)
     try {
       await DB.collection('profile').add(newListado)
-      commit('SET_LISTADO', newListado)
     } catch (error) {
       console.error('error en agregar mascota')
+    } finally {
+      commit('SET_LOADING', false)
+    }
+  },
+
+  async update({ commit }, { id, ...newMascota }) {
+    commit('SET_LOADING', true)
+    try {
+      await DB.collection('profile').doc(id).update(newMascota)
+    } catch (e) {
+      console.error('Error al editar documento: ', id)
     } finally {
       commit('SET_LOADING', false)
     }
