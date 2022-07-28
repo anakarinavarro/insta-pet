@@ -103,7 +103,7 @@ export default {
     },
     contact() {
       window.open(
-        'https://wa.me/5211234567890?text=Me%20interesa%20in%20el%20auto%20que%20vendes'
+        `https://wa.me/${this.value.fono}?text=Me%20interesa%20in%20el%20auto%20que%20vendes`
       )
     }
   },
