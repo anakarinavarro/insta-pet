@@ -65,13 +65,7 @@
         <v-btn @click="heart" class="mx-2" fab dark color="primary"
           ><v-icon dark> mdi-heart </v-icon>{{ contador }}</v-btn
         >
-        <v-btn
-          class="mx-2"
-          fab
-          dark
-          color="secondary"
-          to="TimeLine/PetDetailsView"
-        >
+        <v-btn class="mx-2" fab dark color="secondary" to="/PetDetailsView">
           <v-icon dark> mdi-magnify </v-icon>
         </v-btn>
         <v-btn @click="close" class="mx-2" fab dark color="indigo">

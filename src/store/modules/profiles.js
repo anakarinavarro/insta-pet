@@ -1,5 +1,3 @@
-//import Axios from 'axios'
-
 import { DB } from '@/plugins/Firebase'
 
 export const profilesModule = {
