@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import { profilesModule } from './modules/profiles'
 import { authModule } from './modules/auth'
 import { systemModule } from './modules/system'
+import { monumentsModule } from './modules/monuments'
 
 Vue.use(Vuex)
 
@@ -14,6 +15,7 @@ export default new Vuex.Store({
   modules: {
     profiles: profilesModule,
     auth: authModule,
-    system: systemModule
+    system: systemModule,
+    monuments: monumentsModule
   }
 })

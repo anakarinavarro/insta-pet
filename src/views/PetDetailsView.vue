@@ -13,51 +13,66 @@
 import FooterBar from '@/components/FooterBar.vue'
 import { mapState, mapActions } from 'vuex'
 import mapboxgl from 'mapbox-gl'
+import { v4 as uuidv4 } from 'uuid'
 
 mapboxgl.accessToken = process.env.VUE_APP_MAPBOX_ACCESS_TOKEN
 
 export default {
-  data: () => ({
-    map: null
-  }),
   components: { FooterBar },
-  methods: {
-    ...mapActions('places', {
-      getAllPoints: 'getAll'
-    })
-  },
+  data: () => ({
+    map: null,
+    marker: null,
+    monumentsMarkers: []
+  }),
   computed: {
-    ...mapState('places', {
-      points: (state) => state.list
+    ...mapState('monuments', {
+      monuments: (state) => state.list
     })
   },
-  async created() {
-    await this.getAllPoints()
+  watch: {
+    monuments: {
+      immediate: true,
+      handler() {
+        this.monuments.forEach((monument) => {
+          const $marker = document.createElement('div')
+          $marker.id = uuidv4()
+          $marker.classList.add('marker')
+          $marker.style.backgroundImage = `url('${monument.image}')`
+
+          const popup = new mapboxgl.Popup({ offset: 25 }).setText(
+            monument.description
+          )
+
+          new mapboxgl.Marker($marker)
+            .setLngLat(monument)
+            .setPopup(popup)
+            .addTo(this.map)
+        })
+      }
+    }
+  },
+  methods: {
+    ...mapActions('monuments', {
+      getAllMonumets: 'getAll'
+    })
+  },
+  created() {
+    this.getAllMonumets()
   },
   mounted() {
     this.marker = new mapboxgl.Marker()
-    //console.log(this.points)
-    const monument = [-70.6331, -33.4255]
+
     this.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/light-v10',
-      center: monument,
-      zoom: 10
+      center: [-24, 42],
+      zoom: 1,
+      projection: 'globe'
     })
-    // create the popup
-    const popup = new mapboxgl.Popup({ offset: 25 }).setText(
-      'Parque Urbano más grande de Latinoamérica'
-    )
 
-    // create DOM element for the marker
-    const el = document.createElement('div')
-    el.id = 'marker'
-
-    // create the marker
-    new mapboxgl.Marker(el)
-      .setLngLat(monument)
-      .setPopup(popup) // sets a popup on this marker
-      .addTo(this.map)
+    this.map.on('style.load', () => {
+      this.map.setFog({})
+    })
 
     this.map.addControl(
       new mapboxgl.GeolocateControl({
@@ -94,8 +109,7 @@ export default {
   color: #f3bb2d;
   text-align: center;
 }
-#marker {
-  background-image: url('https://previews.123rf.com/images/erlucho/erlucho1703/erlucho170300221/76034061-telef%C3%A9rico-en-santiago-de-chile-cerro-san-crist%C3%B3bal.jpg?fj=1');
+.marker {
   background-size: cover;
   width: 50px;
   height: 50px;
