@@ -80,14 +80,14 @@ export default {
       email: ''
     },
     emailRules: [
-      (v) => !!v || 'E-mail is required',
-      (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+      (v) => !!v || 'E-mail es requerido',
+      (v) => /.+@.+\..+/.test(v) || 'E-mail no es valido'
     ],
     show1: false,
     rules: {
-      required: (value) => !!value || 'Required.',
-      min: (v) => v.length >= 6 || 'Min 8 characters',
-      emailMatch: () => `The email and password you entered don't match`
+      required: (value) => !!value || 'Requerido',
+      min: (v) => v.length >= 6 || 'Min 8 caracteres',
+      emailMatch: () => `El Mail y Password no son correctos`
     }
   }),
   methods: {

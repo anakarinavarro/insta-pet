@@ -1,11 +1,6 @@
 <template>
   <div>
-    <v-card
-      :loading="loading"
-      class="mx-auto my-12"
-      max-width="374"
-      v-if="disable"
-    >
+    <v-card :loading="loading" class="mx-auto my-12" v-if="disable">
       <template slot="progress">
         <v-progress-linear
           color="bg"
@@ -25,50 +20,87 @@
       >
 
       <v-card-text>
-        <v-row align="center" class="mx-0">
-          <div class="my-4 text-subtitle-1">
+        <v-row class="mx-1">
+          <v-col md="12" class="my-0 text-subtitle-1 elevation-1">
+            <v-icon color="primary">mdi-paw</v-icon>
+            {{ value.petType }}
+          </v-col>
+          <v-col md="12" class="my-0 text-subtitle-1 elevation-1">
             <v-icon color="primary">mdi-star</v-icon>
             {{ value.petRaza }}
-          </div>
-          <div class="my-4 text-subtitle-1">
+          </v-col>
+          <v-col md="12" class="my-0 text-subtitle-1 elevation-1">
             <v-icon color="primary">mdi-cake-variant</v-icon>
             {{ value.petAge }}
-          </div>
+          </v-col>
+          <v-col md="12" class="my-0 text-subtitle-1 elevation-1">
+            <v-icon color="primary">mdi-map-marker</v-icon>
+            {{ value.address }}
+          </v-col>
         </v-row>
-
-        <div class="my-4 text-subtitle-1">
-          <v-icon color="primary">mdi-map-marker</v-icon>
-          {{ value.address }}
-        </div>
-
-        <div>
-          {{ value.descripcion }}
-        </div>
       </v-card-text>
 
       <v-divider class="mx-4"></v-divider>
 
-      <v-card-title>Intereses</v-card-title>
+      <v-card-actions>
+        <v-btn color="primary lighten-2" text> Más información </v-btn>
 
-      <v-card-text>
-        <v-chip-group active-class="deep-purple accent-4 white--text" column>
-          <v-chip>{{ value.intereses[0] }}</v-chip>
+        <v-spacer></v-spacer>
 
-          <v-chip>{{ value.intereses[1] }}</v-chip>
+        <v-btn icon @click="mostrar">
+          <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+        </v-btn>
+      </v-card-actions>
+      <v-expand-transition>
+        <div v-show="show">
+          <v-card-title>Descripción</v-card-title>
+          <v-card-text>
+            {{ value.descripcion }}
+          </v-card-text>
+          <v-card-title>Intereses</v-card-title>
 
-          <v-chip>{{ value.intereses[2] }}</v-chip>
-          <v-chip>{{ value.intereses[3] }}</v-chip>
-        </v-chip-group>
-      </v-card-text>
-
+          <v-card-text>
+            <v-chip-group
+              active-class="deep-purple accent-4 white--text"
+              column
+            >
+              <v-chip>{{ value.intereses[0] }}</v-chip>
+              <v-chip>{{ value.intereses[1] }}</v-chip>
+              <v-chip>{{ value.intereses[2] }}</v-chip>
+              <v-chip>{{ value.intereses[3] }}</v-chip>
+            </v-chip-group>
+          </v-card-text>
+        </div>
+      </v-expand-transition>
+      <v-divider></v-divider>
       <v-card-actions class="d-flex justify-space-between">
-        <v-btn @click="heart" class="mx-2" fab dark color="primary"
+        <v-btn
+          @click="heart"
+          class="mx-2 elevation-2"
+          fab
+          small
+          dark
+          color="primary"
           ><v-icon dark> mdi-heart </v-icon>{{ contador }}</v-btn
         >
-        <v-btn class="mx-2" fab dark color="secondary" to="/PetDetailsView">
+        <v-btn
+          class="mx-2 elevation-2"
+          fab
+          dark
+          small
+          color="secondary"
+          to="/PetDetailsView"
+        >
           <v-icon dark> mdi-magnify </v-icon>
         </v-btn>
-        <v-btn @click="close" class="mx-2" fab dark color="indigo">
+        <v-btn
+          @click="close"
+          class="mx-2 elevation-2"
+          small
+          fab
+          dark
+          color="indigo"
+        >
           <v-icon dark> mdi-close </v-icon>
         </v-btn>
       </v-card-actions>
@@ -82,7 +114,8 @@ export default {
   data: () => ({
     loading: false,
     disable: true,
-    contador: 0
+    contador: 0,
+    show: false
   }),
   props: ['value'],
   computed: {
@@ -105,6 +138,9 @@ export default {
       window.open(
         `https://wa.me/${this.value.fono}?text=Me%20interesa%20in%20el%20auto%20que%20vendes`
       )
+    },
+    mostrar() {
+      return (this.show = !this.show)
     }
   },
   mounted() {
@@ -114,5 +150,3 @@ export default {
 </script>
 
 <style></style>
-
-<style lang="scss" scoped></style>

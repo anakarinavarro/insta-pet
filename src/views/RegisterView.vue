@@ -100,8 +100,8 @@ export default {
       email: ''
     },
     emailRules: [
-      (v) => !!v || 'E-mail is required',
-      (v) => /.+@.+\..+/.test(v) || 'E-mail must be valid'
+      (v) => !!v || 'E-mail es requerido',
+      (v) => /.+@.+\..+/.test(v) || 'E-mail no valido'
     ],
     show1: false,
     rules: {

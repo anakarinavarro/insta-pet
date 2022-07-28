@@ -55,6 +55,7 @@
                     v-model="profile.ownerName"
                     :counter="20"
                     solo
+                    hint="Escriba su nombre"
                     :rules="nameRules"
                     label="Nombre de usuario"
                     required
@@ -63,6 +64,7 @@
                     v-model="profile.fono"
                     :counter="20"
                     solo
+                    hint="Su numero telefonico sin +. Ejemplo 56912345678"
                     :rules="nameRules"
                     label="Numero de contacto del usuario"
                     required
@@ -71,6 +73,7 @@
                     v-model="profile.petName"
                     :counter="20"
                     solo
+                    hint="Escriba el nombre de su mascota"
                     :rules="nameRules"
                     label="Nombre de mascota"
                     required
@@ -79,23 +82,26 @@
                     v-model="profile.petRaza"
                     :counter="20"
                     solo
+                    hint="Raza de su mascota"
                     :rules="nameRules"
                     label="Raza Mascota"
                     required
                   ></v-text-field>
-
-                  <v-select
+                  <v-text-field
                     v-model="profile.petType"
-                    :items="items"
+                    :counter="20"
                     solo
-                    :rules="[(v) => !!v || 'Item is required']"
+                    hint="Tipo de  mascota"
+                    :rules="nameRules"
                     label="Tipo de Mascota"
                     required
-                  ></v-select>
+                  ></v-text-field>
+
                   <v-text-field
                     v-model="profile.petAge"
                     :counter="10"
                     solo
+                    hint="Edad de su mascota"
                     :rules="nameRules"
                     label="Edad Mascota"
                     required
@@ -104,6 +110,7 @@
                     v-model="profile.address"
                     :counter="20"
                     solo
+                    hint="Ciudad de Residencia de su mascota"
                     :rules="nameRules"
                     label="Cuidad"
                     required
@@ -112,7 +119,8 @@
                     v-model="profile.coords"
                     :counter="100"
                     solo
-                    :rules="nameRules"
+                    hint="Encunetre su ubicacion en el mapa"
+                    :rules="coordsRules"
                     label="Cordenadas"
                     required
                   ></v-text-field>
@@ -120,18 +128,21 @@
                     v-model="profile.descripcion"
                     :counter="100"
                     solo
+                    hint="Escriba una pequeña descripcion de su mascota"
                     :rules="nameRules"
                     label="Descripcion"
                     required
                   ></v-text-field>
-                  <v-text-field
+                  <v-select
                     v-model="profile.intereses"
-                    :counter="20"
+                    :items="items"
                     solo
-                    :rules="nameRules"
-                    label="Intereses1"
+                    hint=" Seleccione 4 intereses de su mascota"
+                    multiple
+                    :rules="[(v) => !!v || 'Seleccion requerida']"
+                    label="Intereses de Mascota"
                     required
-                  ></v-text-field>
+                  ></v-select>
 
                   <v-btn
                     :disabled="!valid"
@@ -163,7 +174,6 @@ import { v4 as uuidv4 } from 'uuid'
 import firebase from 'firebase'
 import { mapActions } from 'vuex'
 import PickPlaceMap from '@/components/PickPlaceMap.vue'
-
 export default {
   components: { PickPlaceMap },
   data: () => ({
@@ -183,17 +193,29 @@ export default {
       petAge: '',
       address: '',
       descripcion: '',
-      intereses: '',
+      intereses: [],
       coords: [],
       avatar: null
     },
-
     nameRules: [
       (v) => !!v || 'Campo requerido',
       (v) => (v && v.length <= 100) || 'No pueden ser mas de 20 carácteres'
     ],
+    coordsRules: [(v) => !!v || 'Campo requerido'],
     select: null,
-    items: ['Perro', 'Gato', 'Conejo', 'Hamster']
+    items: [
+      'Correr',
+      'Jugar',
+      'Dormir',
+      'Pasear',
+      'Comer',
+      'Evenbtos',
+      'Cumpleaños',
+      'El parque',
+      'Maullar',
+      'Ronrronear',
+      'Cazar'
+    ]
   }),
   methods: {
     ...mapActions('profiles', ['createAccount', 'getAllProfiles', 'update']),
@@ -220,7 +242,6 @@ export default {
     reset() {
       this.$refs.formUp.reset()
     },
-
     async agregarMascota() {
       if (this.$refs.formUp.validate()) {
         await this.createAccount({ ...this.profile })
