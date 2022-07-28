@@ -1,51 +1,72 @@
 <template>
-  <v-container fluid>
-    <v-row class="mb-6" justify="center" no-gutters>
-      <v-col cols="4">
-        <v-form
-          ref="form"
-          v-model="valid"
-          lazy-validation
-          @submit.prevent="login()"
-        >
-          <v-text-field
-            solo
-            v-model="credenciales.email"
-            :rules="emailRules"
-            label="E-mail"
-            required
-          ></v-text-field>
-          <v-text-field
-            solo
-            v-model="credenciales.password"
-            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-            :rules="[rules.required, rules.min]"
-            :type="show1 ? 'text' : 'password'"
-            name="input-10-1"
-            label="Registra tu Contraseña"
-            hint="Mínimo 8 caracteres"
-            counter
-            @click:append="show1 = !show1"
-          ></v-text-field>
-          <v-row>
-            <v-col cols="12">
+  <v-form
+    ref="form"
+    v-model="valid"
+    lazy-validation
+    @submit.prevent="login()"
+    class="d-contents"
+  >
+    <v-layout align-center h-100 justify-center no-gutters>
+      <v-flex sm6>
+        <v-card class="pa-5 pa-md-12 card mx-auto" style="box-shadow: inherit">
+          <v-layout column h-100 ma-0 justify-center>
+            <v-flex shrink>
+              <v-btn block color="#7400fc" style="box-shadow: inherit">
+                <router-link to="/">
+                  <v-img
+                    class="my-auto"
+                    src="../../public/assets/img/InstaPet_logo.svg"
+                    width="200"
+                  ></v-img>
+                </router-link>
+              </v-btn>
+            </v-flex>
+            <v-flex shrink my-5>
+              <p align="center" style="color: #ffffff">
+                Red social
+                <v-icon color="pink darken-1">mdi-heart</v-icon>
+                para mascotas
+              </p>
+            </v-flex>
+            <v-flex shrink>
+              <v-text-field
+                solo
+                v-model="credenciales.email"
+                :rules="emailRules"
+                label="E-mail"
+                required
+              ></v-text-field>
+            </v-flex>
+            <v-flex shrink>
+              <v-text-field
+                solo
+                v-model="credenciales.password"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :rules="[rules.required, rules.min]"
+                :type="show1 ? 'text' : 'password'"
+                name="input-10-1"
+                label="Registra tu Contraseña"
+                hint="Mínimo 8 caracteres"
+                counter
+                @click:append="show1 = !show1"
+              ></v-text-field>
+            </v-flex>
+            <v-flex shrink>
               <v-btn
-                :disabled="!valid"
-                type="submit"
-                right
-                outlined
                 block
+                :disabled="!valid"
                 color="primary"
-                :loading="loading"
                 @click="validate"
-                >Iniciar Sesión</v-btn
-              >
-            </v-col>
-          </v-row>
-        </v-form>
-      </v-col>
-    </v-row>
-  </v-container>
+                type="submit"
+                :loading="loading"
+                >Iniciar Sesión
+              </v-btn>
+            </v-flex>
+          </v-layout>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-form>
 </template>
 
 <script>
@@ -99,4 +120,13 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.card {
+  background-color: var(--v-bg-base);
+  height: 50vh;
+  min-height: 350px;
+  max-height: 500px;
+  min-width: 300px;
+  max-width: 500px;
+}
+</style>
