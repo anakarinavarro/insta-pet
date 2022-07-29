@@ -12,8 +12,8 @@
       <v-img :src="value.avatar" height="250"></v-img>
 
       <v-card-title>{{ value.petName }}</v-card-title>
-      <v-card-subtitle class="d-flex justify-space-between"
-        >Mi Humano: {{ value.ownerName }}
+      <v-card-subtitle class="d-flex justify-space-between">
+        Mi Humano: {{ value.ownerName }}
         <v-btn color="wsp pa-1 elevation-1" fab small @click="contact()">
           <v-icon> mdi-whatsapp </v-icon>
         </v-btn></v-card-subtitle
@@ -127,7 +127,6 @@ export default {
   },
   methods: {
     ...mapActions('profiles', ['getAllProfiles']),
-
     close() {
       this.disable = false
     },
