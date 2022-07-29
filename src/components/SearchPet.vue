@@ -2,10 +2,10 @@
   <v-toolbar dark color="secondary">
     <v-toolbar-title>Buscador por Tipo de Mascota</v-toolbar-title>
     <v-autocomplete
-      v-model="select"
       :loading="loading"
       :items="items"
-      :search-input.sync="search"
+      :value="value"
+      @input="$emit('input', $event)"
       cache-items
       class="mx-4"
       flat
@@ -26,16 +26,9 @@ export default {
   data() {
     return {
       loading: false,
-      items: [],
       search: null,
       select: null,
-      states: [
-        { value: 'perro', text: 'Tipo de mascota' },
-        { value: 'gato', text: 'Tipo de mascota' },
-        { value: 'conejo', text: 'Tipo de mascota' },
-        { value: 'Hamster', text: 'Tipo de mascota' },
-        { value: 'loro', text: 'Tipo de mascota' }
-      ]
+      items: ['Perro', 'Gato', 'Conejo', 'Hamster', 'Loro']
     }
   },
   props: ['value'],

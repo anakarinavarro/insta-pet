@@ -3,7 +3,7 @@
     <NavBar v-if="activeLogin" />
     <NavigationDrawer v-if="activeLogin" />
     <v-main>
-      <v-container class="bg h-100 w-100" fluid>
+      <v-container class="h-100 w-100">
         <transition name="fade" mode="out-in">
           <router-view />
         </transition>
@@ -30,5 +30,6 @@ export default {
 <style>
 .v-application--wrap {
   font-family: 'Montserrat', sans-serif;
+  background-color: var(--v-bg-base);
 }
 </style>
