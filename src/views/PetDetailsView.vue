@@ -2,7 +2,6 @@
   <v-container style="background-color: #7400fc">
     <div>
       <h2 class="home-title">Parques y Plazas</h2>
-      <h4 class="home-sub-title">Marca tu lugar de paseo frecuente</h4>
       <div id="map"></div>
       <FooterBar />
     </div>
@@ -85,12 +84,6 @@ export default {
         showUserHeading: true
       })
     )
-
-    this.map.on('click', ($event) => {
-      this.marker.setLngLat($event.lngLat)
-      this.marker.addTo(this.map)
-      this.$emit('pick', $event.lngLat)
-    })
   }
 }
 </script>
@@ -103,10 +96,6 @@ export default {
 .home-title {
   color: #f3bb2d;
   font-size: 50px;
-  text-align: center;
-}
-.home-sub-title {
-  color: #f3bb2d;
   text-align: center;
 }
 .marker {
